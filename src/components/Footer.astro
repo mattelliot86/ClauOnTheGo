@@ -1,0 +1,17 @@
+---
+// Footer component.  Displays contact branding and legal notice.
+
+const { content } = Astro.props;
+---
+<footer class="bg-gray-900 text-white py-8 mt-16">
+  <div class="max-w-4xl mx-auto text-center space-y-2">
+    <h3 class="text-xl font-semibold">{content.name}</h3>
+    <p>{content.service}</p>
+    <a
+      href={`https://instagram.com/${content.instagram.replace('@', '')}`}
+      class="underline hover:text-gray-300"
+      >{content.instagram}</a
+    >
+    <p class="text-xs mt-2">{content.copyright}</p>
+  </div>
+</footer>

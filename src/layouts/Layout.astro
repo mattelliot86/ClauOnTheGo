@@ -1,0 +1,26 @@
+---
+// Basic site layout used to wrap all pages.  It imports a
+// Tailwind CSS CDN to provide a modern utility‑first styling
+// framework without installing dependencies.  You can remove the
+// Tailwind script and write your own CSS in `src/styles/global.css`
+// if you prefer a different styling approach.
+
+import '../styles/global.css';
+
+const { title } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <!-- Import Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS is built locally via PostCSS + Tailwind (see postcss.config.cjs) -->
+  </head>
+  <body class="font-inter">
+    <slot />
+  </body>
+</html>

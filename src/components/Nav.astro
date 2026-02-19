@@ -1,0 +1,20 @@
+---
+// Navigation bar component.  This provides quick links to the
+// different sections of the page using anchor elements.  It stays
+// fixed at the top when scrolling for easy access.
+---
+<nav class="fixed top-0 left-0 w-full bg-white shadow z-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center py-4">
+      <a href="#" class="text-xl font-bold text-blue-600">ClauOnTheGo</a>
+      <ul class="hidden md:flex space-x-6 font-medium text-gray-700">
+        <li><a href="#hero" class="hover:text-blue-600">Inicio</a></li>
+        <li><a href="#sobre-mi" class="hover:text-blue-600">Sobre mí</a></li>
+        <li><a href="#filosofia" class="hover:text-blue-600">Filosofía</a></li>
+        <li><a href="#proceso" class="hover:text-blue-600">Proceso</a></li>
+        <li><a href="#paquetes" class="hover:text-blue-600">Paquetes</a></li>
+        <li><a href="#contacto" class="hover:text-blue-600">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

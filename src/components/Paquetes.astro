@@ -1,0 +1,38 @@
+---
+// Paquetes (packages) section component.  Renders a grid of plans
+// including pricing, target audience, focus, items included and
+// objectives.  Cards are styled with subtle shadows and spacing.
+
+const { content } = Astro.props;
+---
+<section id="paquetes" class="py-16 bg-gray-100 px-6 md:px-0">
+  <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+    {content.title}
+  </h2>
+  <div class="max-w-4xl mx-auto space-y-4 text-gray-700">
+    {content.intro.map((p) => (<p>{p}</p>))}
+  </div>
+  <div class="max-w-7xl mx-auto mt-10 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {content.planes.map((plan) => (
+      <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 flex flex-col">
+        <h3 class="text-xl font-semibold mb-1 text-blue-700">{plan.name}</h3>
+        <p class="text-lg font-bold text-gray-800 mb-3">{plan.price}</p>
+        <p class="text-sm mb-2"><strong>Para quién:</strong> {plan.paraQuien}</p>
+        <p class="text-sm mb-2"><strong>Enfoque:</strong> {plan.enfoque}</p>
+        <h4 class="font-semibold mt-3">Incluye:</h4>
+        <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+          {plan.incluye.map((item) => (<li>{item}</li>))}
+        </ul>
+        {plan.noIncluye && (
+          <>
+            <h4 class="font-semibold mt-3">No incluye:</h4>
+            <ul class="list-disc list-inside space-y-1 text-sm text-gray-700">
+              {plan.noIncluye.map((item) => (<li>{item}</li>))}
+            </ul>
+          </>
+        )}
+        <p class="mt-3 text-sm"><strong>Objetivo:</strong> {plan.objetivo}</p>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles for the ClauOnTheGo Astro site.  Tailwind utilities
+ * are generated via PostCSS + Tailwind. These rules provide a few
+ * bespoke adjustments and overrides.
+ */
+
+body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* Provide a smooth anchor scrolling offset to account for the
+ * fixed navigation bar height.  This ensures that when clicking
+ * nav links the section headings aren’t hidden under the nav.
+ */
+html {
+  scroll-padding-top: 80px;
+}
