@@ -5,10 +5,12 @@
 // Tailwind script and write your own CSS in `src/styles/global.css`
 // if you prefer a different styling approach.
 
-import '../styles/global.css';
+import "../styles/global.css";
+import ThemeDebugger from "../components/ThemeDebugger.astro";
 
 const { title } = Astro.props;
 ---
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -16,11 +18,15 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <!-- Import Google Fonts for typography -->
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Tailwind CSS is built locally via PostCSS + Tailwind (see postcss.config.cjs) -->
   </head>
   <body class="font-inter">
     <slot />
+    <ThemeDebugger />
   </body>
 </html>

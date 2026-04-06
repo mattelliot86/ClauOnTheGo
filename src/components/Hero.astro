@@ -1,29 +1,142 @@
 ---
-// Hero section component.  It displays the main headline and a
-// succinct explanation of the service offering, as well as CTA
-// buttons and personal branding.  Content is passed via props.
-
 const { content } = Astro.props;
 ---
-<section id="hero" class="min-h-screen flex flex-col justify-center items-center text-center pt-24 pb-16 bg-gray-50">
-  <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
-    {content.title}
-  </h1>
-  <h2 class="text-xl md:text-2xl font-medium mb-4 text-gray-600">
-    {content.subtitle}
-  </h2>
-  <div class="max-w-2xl mx-auto mb-6 space-y-2 text-gray-600">
-    {content.description.map((line) => (<p>{line}</p>))}
-  </div>
-  <div class="flex flex-wrap justify-center gap-4 mb-8">
-    {content.actions.map((action) => (
-      <a href="#contacto" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded transition">
-        {action}
+
+<section
+  id="hero"
+  class="relative min-h-screen flex items-center justify-center bg-hero text-white overflow-hidden"
+>
+  <div class="container mx-auto px-6 relative z-10 text-center">
+    <span
+      class="inline-block text-accent font-bold tracking-[0.2em] uppercase mb-4 animate-fade-in drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
+    >
+      {content.role}
+    </span>
+    <h1
+      class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight"
+    >
+      {content.title.split(" ").slice(0, -1).join(" ")}
+      <span class="text-primary inline-block font-bold drop-shadow-md"
+        >{content.title.split(" ").slice(-1)}</span
+      >
+    </h1>
+    <p
+      class="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto mb-12 font-light leading-relaxed drop-shadow-md min-h-[3rem] md:min-h-[4rem]"
+    >
+      Ayudo a que tu Instagram <span
+        id="typewriter"
+        class="font-medium text-white"
+        data-phrases={JSON.stringify(content.dynamicPhrases)}></span><span
+        class="animate-pulse">|</span
+      >
+    </p>
+    <div class="flex flex-wrap justify-center gap-6">
+      <a href="#contacto" class="btn btn-primary">
+        {content.actions[0]}
       </a>
-    ))}
+      <a href="#sobre-mi" class="btn btn-outline"> Conocer más</a>
+    </div>
   </div>
-  <div class="mt-4 text-center">
-    <h3 class="text-2xl font-semibold text-gray-800">{content.name}</h3>
-    <p class="text-gray-600 italic">{content.role}</p>
+
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+    <a
+      href="#sobre-mi"
+      class="text-white/50 hover:text-white transition-colors"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-8 w-8"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </a>
   </div>
 </section>
+
+<script>
+  const typewriterElement = document.getElementById("typewriter");
+  if (typewriterElement) {
+    const phrases = JSON.parse(typewriterElement.dataset.phrases || "[]");
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isWaiting = false;
+
+    function type() {
+      const currentPhrase = phrases[phraseIndex];
+
+      if (isDeleting) {
+        typewriterElement!.textContent = currentPhrase.substring(
+          0,
+          charIndex - 1
+        );
+        charIndex--;
+      } else {
+        typewriterElement!.textContent = currentPhrase.substring(
+          0,
+          charIndex + 1
+        );
+        charIndex++;
+      }
+
+      let typeSpeed = isDeleting ? 30 : 50;
+
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        // Finished typing the phrase, wait before deleting
+        typeSpeed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        // Finished deleting, move to next phrase
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    if (phrases.length > 0) {
+      setTimeout(type, 500); // Initial delay
+    }
+  }
+</script>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
+  }
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+  }
+  .animate-pulse-glow {
+    animation: pulse-glow 8s ease-in-out infinite;
+  }
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+</style>

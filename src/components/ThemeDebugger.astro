@@ -1,0 +1,374 @@
+---
+---
+
+<div
+    id="theme-debugger"
+    class="fixed bottom-4 right-4 z-50 flex flex-col items-end group"
+>
+    <!-- The floating button -->
+    <button
+        id="theme-btn"
+        class="w-12 h-12 bg-gray-900 text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+            ></path>
+        </svg>
+    </button>
+
+    <!-- The expandable panel -->
+    <div
+        id="theme-panel"
+        class="hidden absolute bottom-16 right-0 bg-white p-6 rounded-2xl shadow-2xl border border-gray-100 w-80 translate-y-4 opacity-0 transition-all duration-300"
+    >
+        <div class="flex justify-between items-center mb-4">
+            <h3
+                class="font-bold text-gray-900 border-b border-gray-200 pb-2 w-full"
+            >
+                Theme Debugger
+            </h3>
+        </div>
+
+        <div id="theme-color-list" class="space-y-4 mb-6">
+            <div
+                class="flex items-center justify-between color-row bg-white p-2 rounded -mx-2 hover:bg-gray-50 transition-colors"
+                draggable="true"
+            >
+                <div class="cursor-move flex items-center pr-2 opacity-30 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <label
+                    class="text-xs font-semibold text-gray-500 uppercase pointer-events-none flex-grow"
+                    >Background</label
+                >
+                <div class="flex items-center gap-2">
+                    <input type="text" data-var="--bg" class="theme-text-input text-xs border border-gray-200 rounded p-1 w-20 text-center font-mono text-gray-600 focus:outline-none focus:border-primary" value="#F8FAFC" />
+                    <input
+                        type="color"
+                        data-var="--bg"
+                        class="theme-color-input w-8 h-8 rounded cursor-pointer border-0 p-0 shrink-0"
+                        value="#F8FAFC"
+                    />
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between color-row bg-white p-2 rounded -mx-2 hover:bg-gray-50 transition-colors"
+                draggable="true"
+            >
+                <div class="cursor-move flex items-center pr-2 opacity-30 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <label
+                    class="text-xs font-semibold text-gray-500 uppercase pointer-events-none flex-grow"
+                    >Text</label
+                >
+                <div class="flex items-center gap-2">
+                    <input type="text" data-var="--text" class="theme-text-input text-xs border border-gray-200 rounded p-1 w-20 text-center font-mono text-gray-600 focus:outline-none focus:border-primary" value="#0F172A" />
+                    <input
+                        type="color"
+                        data-var="--text"
+                        class="theme-color-input w-8 h-8 rounded cursor-pointer border-0 p-0 shrink-0"
+                        value="#0F172A"
+                    />
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between color-row bg-white p-2 rounded -mx-2 hover:bg-gray-50 transition-colors"
+                draggable="true"
+            >
+                <div class="cursor-move flex items-center pr-2 opacity-30 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <label
+                    class="text-xs font-semibold text-gray-500 uppercase pointer-events-none flex-grow"
+                    >Primary</label
+                >
+                <div class="flex items-center gap-2">
+                    <input type="text" data-var="--primary" class="theme-text-input text-xs border border-gray-200 rounded p-1 w-20 text-center font-mono text-gray-600 focus:outline-none focus:border-primary" value="#8B5CF6" />
+                    <input
+                        type="color"
+                        data-var="--primary"
+                        class="theme-color-input w-8 h-8 rounded cursor-pointer border-0 p-0 shrink-0"
+                        value="#8B5CF6"
+                    />
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between color-row bg-white p-2 rounded -mx-2 hover:bg-gray-50 transition-colors"
+                draggable="true"
+            >
+                <div class="cursor-move flex items-center pr-2 opacity-30 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <label
+                    class="text-xs font-semibold text-gray-500 uppercase pointer-events-none flex-grow"
+                    >Accent</label
+                >
+                <div class="flex items-center gap-2">
+                    <input type="text" data-var="--accent" class="theme-text-input text-xs border border-gray-200 rounded p-1 w-20 text-center font-mono text-gray-600 focus:outline-none focus:border-primary" value="#0EA5E9" />
+                    <input
+                        type="color"
+                        data-var="--accent"
+                        class="theme-color-input w-8 h-8 rounded cursor-pointer border-0 p-0 shrink-0"
+                        value="#0EA5E9"
+                    />
+                </div>
+            </div>
+            <div
+                class="flex items-center justify-between color-row bg-white p-2 rounded -mx-2 hover:bg-gray-50 transition-colors"
+                draggable="true"
+            >
+                <div class="cursor-move flex items-center pr-2 opacity-30 hover:opacity-100 transition-opacity">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h.01M15 5h.01M9 12h.01M15 12h.01M9 19h.01M15 19h.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <label
+                    class="text-xs font-semibold text-gray-500 uppercase pointer-events-none flex-grow"
+                    >Neutral</label
+                >
+                <div class="flex items-center gap-2">
+                    <input type="text" data-var="--neutral" class="theme-text-input text-xs border border-gray-200 rounded p-1 w-20 text-center font-mono text-gray-600 focus:outline-none focus:border-primary" value="#E2E8F0" />
+                    <input
+                        type="color"
+                        data-var="--neutral"
+                        class="theme-color-input w-8 h-8 rounded cursor-pointer border-0 p-0 shrink-0"
+                        value="#E2E8F0"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label
+                class="text-xs font-semibold text-gray-500 uppercase block mb-2"
+                >Paste JSON Palette Object</label
+            >
+            <textarea
+                id="theme-json"
+                rows="3"
+                class="w-full text-xs p-2 bg-gray-50 border border-gray-200 rounded focus:ring-primary focus:border-primary font-mono"
+                placeholder={'{"Color 1": "hex", "Color 2": "hex"...}'}
+            ></textarea>
+            <p id="theme-error" class="text-xs text-red-500 mt-1 hidden">
+                Invalid JSON
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Panel toggle logic
+    const btn = document.getElementById("theme-btn");
+    const panel = document.getElementById("theme-panel");
+    let open = false;
+
+    btn?.addEventListener("click", () => {
+        open = !open;
+        if (open) {
+            panel?.classList.remove("hidden");
+            // small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                panel?.classList.remove("translate-y-4", "opacity-0");
+            }, 10);
+        } else {
+            panel?.classList.add("translate-y-4", "opacity-0");
+            setTimeout(() => {
+                panel?.classList.add("hidden");
+            }, 300);
+        }
+    });
+
+    // Color input logic
+    const inputs = document.querySelectorAll<HTMLInputElement>(".theme-color-input");
+    const textInputs = document.querySelectorAll<HTMLInputElement>(".theme-text-input");
+
+    const updateColor = (varName: string, value: string) => {
+        document.documentElement.style.setProperty(varName, value);
+    };
+
+    const rgbToHex = (r: any, g: any, b: any) => '#' + [r, g, b].map((x: any) => {
+        const hex = parseInt(x).toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+    }).join('').toUpperCase();
+
+    const parseColor = (colorStr: string) => {
+        if (!colorStr) return null;
+        if (colorStr.startsWith('#')) return colorStr.toUpperCase();
+        if (colorStr.startsWith('rgb')) {
+            const matches = colorStr.match(/\d+/g);
+            if (matches && matches.length >= 3) {
+                return rgbToHex(matches[0], matches[1], matches[2]);
+            }
+        }
+        return null;
+    };
+
+    textInputs.forEach((textInput) => {
+        const varName = textInput.getAttribute("data-var") as string;
+        const colorInput = document.querySelector<HTMLInputElement>(`.theme-color-input[data-var="${varName}"]`);
+        
+        // Sync root style variable on load
+        if (varName) {
+            const rootStyle = getComputedStyle(document.documentElement);
+            const currentVal = rootStyle.getPropertyValue(varName).trim();
+            const hexVal = parseColor(currentVal) || textInput.value;
+            
+            textInput.value = hexVal;
+            if (colorInput) colorInput.value = hexVal;
+        }
+
+        textInput.addEventListener("input", (e) => {
+            let val = (e.target as HTMLInputElement).value;
+            if (val.length === 7 && val.startsWith('#')) {
+                updateColor(varName, val);
+                if (colorInput) colorInput.value = val;
+            }
+        });
+
+        if (colorInput) {
+            colorInput.addEventListener("input", (e) => {
+                const val = (e.target as HTMLInputElement).value.toUpperCase();
+                textInput.value = val;
+                updateColor(varName, val);
+            });
+        }
+    });
+
+    // Drag and Drop Logic
+    const rows = document.querySelectorAll(".color-row");
+    let draggedItem: HTMLElement | null = null;
+
+    rows.forEach((row) => {
+        row.addEventListener("dragstart", function (this: HTMLElement) {
+            draggedItem = this;
+            setTimeout(() => this.classList.add("opacity-50"), 0);
+        });
+
+        row.addEventListener("dragend", function (this: HTMLElement) {
+            setTimeout(() => this.classList.remove("opacity-50"), 0);
+            draggedItem = null;
+            rows.forEach((r) => r.classList.remove("bg-gray-200"));
+        });
+
+        row.addEventListener("dragover", function (e) {
+            e.preventDefault();
+        });
+
+        row.addEventListener("dragenter", function (this: HTMLElement, e) {
+            e.preventDefault();
+            if (this !== draggedItem && draggedItem) {
+                this.classList.add("bg-gray-200");
+            }
+        });
+
+        row.addEventListener("dragleave", function (this: HTMLElement, e) {
+            this.classList.remove("bg-gray-200");
+        });
+
+        row.addEventListener("drop", function (this: HTMLElement, e) {
+            e.stopPropagation();
+            this.classList.remove("bg-gray-200");
+
+            if (draggedItem && draggedItem !== this) {
+                const draggedInput = draggedItem.querySelector<HTMLInputElement>(".theme-color-input");
+                const targetInput = this.querySelector<HTMLInputElement>(".theme-color-input");
+
+                if (draggedInput && targetInput) {
+                    const temp = draggedInput.value;
+                    draggedInput.value = targetInput.value;
+                    targetInput.value = temp;
+
+                    // Update CSS vars
+                    const draggedVar = draggedInput.getAttribute("data-var");
+                    const targetVar = targetInput.getAttribute("data-var");
+
+                    if (draggedVar) {
+                        document.documentElement.style.setProperty(
+                            draggedVar,
+                            draggedInput.value
+                        );
+                        const txt = document.querySelector<HTMLInputElement>(`.theme-text-input[data-var="${draggedVar}"]`);
+                        if (txt) txt.value = draggedInput.value.toUpperCase();
+                    }
+                    if (targetVar) {
+                        document.documentElement.style.setProperty(
+                            targetVar,
+                            targetInput.value
+                        );
+                        const txt = document.querySelector<HTMLInputElement>(`.theme-text-input[data-var="${targetVar}"]`);
+                        if (txt) txt.value = targetInput.value.toUpperCase();
+                    }
+                }
+            }
+            return false;
+        });
+    });
+
+    // JSON Paste Logic
+    const textarea = document.getElementById(
+        "theme-json"
+    ) as HTMLTextAreaElement;
+    const errorMsg = document.getElementById("theme-error");
+
+    textarea?.addEventListener("input", () => {
+        errorMsg?.classList.add("hidden");
+        const val = textarea.value.trim();
+        if (!val) return;
+
+        try {
+            const parsed = JSON.parse(val);
+            const values = Object.values(parsed);
+
+            // Read the dynamic order from the DOM
+            const domInputs = document.querySelectorAll(".theme-color-input");
+            const varOrder = Array.from(domInputs).map((inp: Element) =>
+                inp.getAttribute("data-var")
+            );
+
+            const hexes = values
+                .map((v: unknown) => {
+                    let str = String(v).trim();
+                    if (!str.startsWith("#")) str = "#" + str;
+                    return str;
+                })
+                .filter((v) => /^#[0-9A-Fa-f]{6}$/.test(v));
+
+            if (hexes.length > 0) {
+                // Apply them in order
+                inputs.forEach((input, idx) => {
+                    const varName = varOrder[idx];
+                    if (varName && hexes[idx]) {
+                        // Find the input corresponding to varName
+                        const targetColorInput = document.querySelector<HTMLInputElement>(`.theme-color-input[data-var="${varName}"]`);
+                        const targetTextInput = document.querySelector<HTMLInputElement>(`.theme-text-input[data-var="${varName}"]`);
+                        
+                        if (targetColorInput && targetTextInput) {
+                            targetColorInput.value = hexes[idx];
+                            targetTextInput.value = hexes[idx].toUpperCase();
+                            document.documentElement.style.setProperty(
+                                varName,
+                                hexes[idx]
+                            );
+                        }
+                    }
+                });
+
+                // Clear textarea after successful apply
+                setTimeout(() => {
+                    textarea.value = "";
+                }, 1000);
+            }
+        } catch (e) {
+            errorMsg?.classList.remove("hidden");
+        }
+    });
+</script>

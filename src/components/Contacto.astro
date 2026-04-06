@@ -1,34 +1,109 @@
 ---
-// Contacto (contact) section component.  Provides a simple form
-// capturing essential details from prospective clients.  A thank
-// you notice is displayed below the form to set expectations.
-
 const { content } = Astro.props;
 ---
-<section id="contacto" class="py-16 px-6 md:px-0">
-  <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
-    {content.title}
-  </h2>
-  <div class="max-w-3xl mx-auto space-y-4 text-gray-700">
-    {content.description.map((p) => (<p>{p}</p>))}
-  </div>
-  <form class="max-w-3xl mx-auto mt-8 grid grid-cols-1 gap-4">
-    {content.fields.map((field, idx) => (
-      <input
-        type="text"
-        placeholder={field}
-        class="p-3 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        key={idx}
-      />
-    ))}
-    <button
-      type="submit"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md transition"
-    >
-      Enviar
-    </button>
-  </form>
-  <div class="max-w-3xl mx-auto mt-8 space-y-2 text-center text-sm text-gray-600">
-    {content.gracias.map((p) => (<p>{p}</p>))}
+
+<section id="contacto" class="section-padding bg-gray-50 relative z-10">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col lg:flex-row gap-16">
+      <div class="w-full lg:w-5/12 lg:pr-8">
+        <span
+          class="text-accent font-bold tracking-[0.2em] uppercase text-sm mb-4 inline-block"
+          >Hablemos</span
+        >
+        <h2
+          class="text-4xl md:text-5xl font-black tracking-tight mb-8 text-gray-900"
+        >
+          {content.title}
+        </h2>
+        <div class="space-y-6 text-gray-600 font-light leading-relaxed">
+          {content.description.map((p: string) => <p>{p}</p>)}
+        </div>
+        <div class="mt-12 pt-12 border-t border-gray-200">
+          <p class="text-sm uppercase tracking-widest text-gray-500 mb-4">
+            Expectativas
+          </p>
+          <div class="space-y-4">
+            {
+              content.gracias
+                .slice(2)
+                .map((p: string) => <p class="text-sm text-gray-600 italic">{p}</p>)
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-7/12">
+        <form
+          class="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-gray-200/50 border border-transparent text-gray-900 grid grid-cols-1 md:grid-cols-2 gap-6 relative overflow-hidden"
+        >
+          <div class="md:col-span-2 relative z-10">
+            <label
+              class="block text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-2"
+              >Información Personal</label
+            >
+            <input
+              type="text"
+              placeholder={content.fields[0]}
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+            />
+          </div>
+          <div class="relative z-10">
+            <input
+              type="email"
+              placeholder={content.fields[1]}
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+            />
+          </div>
+          <div class="relative z-10">
+            <input
+              type="tel"
+              placeholder={content.fields[2]}
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+            />
+          </div>
+
+          <div class="md:col-span-2 relative z-10">
+            <label
+              class="block text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-2"
+              >{content.fields[12]}</label
+            >
+            <textarea
+              placeholder="Cuéntame un poco sobre ti..."
+              rows="3"
+              class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+            ></textarea>
+          </div>
+
+          <div class="md:col-span-2 relative z-10">
+            <label
+              class="block text-xs font-bold uppercase tracking-[0.2em] text-gray-500 mb-4"
+              >{content.fields[8]}</label
+            >
+            <div class="flex flex-wrap gap-6">
+              {
+                content.fields.slice(9, 12).map((option: string) => (
+                  <label class="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="interest"
+                      class="w-4 h-4 text-primary bg-gray-50 border-gray-300 focus:ring-primary focus:ring-offset-0"
+                    />
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
+                      {option}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="md:col-span-2 mt-4">
+            <button type="submit" class="w-full py-4 text-xl font-bold text-white rounded-[32px] bg-gradient-to-r from-indigo-500 to-sky-400 hover:scale-[1.02] hover:shadow-xl hover:shadow-indigo-500/20 active:scale-[0.98] transition-all duration-300">
+              Enviar Solicitud
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </section>

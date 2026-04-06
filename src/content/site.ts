@@ -9,9 +9,17 @@ export const siteContent = {
     title: "Gestión Estratégica de Instagram",
     subtitle: "para Profesionales y Marcas de Servicios",
     description: [
-      "Ayudo a que tu Instagram refleje el verdadero valor de tu negocio,",
-      "con contenido estratégico, coherente y enfocado en atraer a los clientes correctos.",
+      "Ayudo a que tu Instagram refleje el verdadero valor de tu negocio",
+      "con contenido estratégico, coherente y enfocado en atraer a los clientes correctos",
       "Enfocado en posicionamiento, confianza y crecimiento sostenible para atraer clientes correctos",
+    ],
+    dynamicPhrases: [
+      "refleje la calidad premium de tus servicios",
+      "posicione tu marca como un referente en tu sector",
+      "convierta tu perfil en un imán de clientes ideales",
+      "transforme visitas en oportunidades reales de negocio",
+      "construya una reputación basada en la confianza",
+      "deje la improvisación para enfocarse en resultados sostenibles"
     ],
     actions: ["Agenda una llamada", "Ver portafolio"],
     name: "Claudia Ramos",
@@ -207,9 +215,10 @@ export const siteContent = {
       "¿Qué te gustaría mejorar en tu Instagram hoy?",
       "¿Qué sientes que no está funcionando en tu Instagram actualmente?",
       "¿Con qué presupuesto mensual te sentirías cómodo para la gestión?",
-      "650 – 1,000",
-      "1,050 – 1,400",
-      "Más de 1,450",
+      "Plan elegido",
+      "Plan Impulso",
+      "Plan Crecimiento",
+      "Plan Posicionamiento",
       "¿Por qué crees que ahora es un buen momento para trabajar tu Instagram?",
     ],
     gracias: [

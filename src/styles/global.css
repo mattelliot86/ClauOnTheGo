@@ -1,22 +1,186 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* Global styles for the ClauOnTheGo Astro site.  Tailwind utilities
- * are generated via PostCSS + Tailwind. These rules provide a few
- * bespoke adjustments and overrides.
- */
-
-body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
+/* =========================
+   Brand palette (ONE PLACE)
+   ========================= */
+:root {
+  --bg: #F8FAFC;
+  --text: #0F172A;
+  --primary: #8B5CF6;
+  --accent: #0EA5E9;
+  --neutral: #E2E8F0;
 }
 
-/* Provide a smooth anchor scrolling offset to account for the
- * fixed navigation bar height.  This ensures that when clicking
- * nav links the section headings aren’t hidden under the nav.
- */
-html {
-  scroll-padding-top: 80px;
+/* =========================
+   Base
+   ========================= */
+@layer base {
+  html {
+    scroll-padding-top: 56px;
+    /* match your nav height */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* =========================
+   Semantic utility classes
+   Use these instead of hex:
+   text-primary, bg-accent, etc.
+   ========================= */
+@layer utilities {
+  .bg-site {
+    background-color: var(--bg);
+  }
+
+  .text-site {
+    color: var(--text);
+  }
+
+  .bg-primary {
+    background-color: var(--primary);
+  }
+
+  .text-primary {
+    color: var(--primary);
+  }
+
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .text-accent {
+    color: var(--accent);
+  }
+
+  .bg-neutral {
+    background-color: var(--neutral);
+  }
+
+  .text-neutral {
+    color: var(--neutral);
+  }
+}
+
+/* =========================
+   Components (Tailwind + vars)
+   ========================= */
+@layer components {
+  .nav-link {
+    @apply text-sm font-semibold uppercase tracking-wider transition-colors duration-300;
+    color: var(--text);
+  }
+
+  .section-padding {
+    @apply py-20 md:py-20;
+  }
+
+  .btn {
+    @apply inline-block px-8 py-4 rounded-full font-bold transition-all duration-300 transform hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    @apply shadow-lg transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+  }
+
+  .btn-outline {
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    border-color: white;
+    color: var(--text);
+  }
+}
+
+@layer utilities {
+  .animate-gradient-xy {
+    animation: gradient-xy 15s ease infinite;
+    background-size: 400% 400%;
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes gradient-xy {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================
+   Hero background
+   ========================= */
+.bg-hero {
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.2), rgba(15, 23, 42, 0.1)),
+    url('https://templates.acrothemes.com/synx/demos/bootstrap-v5/images/bg-personal.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* =========================
+   Sticky nav scrolled state
+   ========================= */
+.nav-scrolled {
+  background: rgba(248, 250, 252, 0.9);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+  @apply backdrop-blur-md shadow-md py-3;
+}
+
+.nav-scrolled .nav-logo {
+  color: var(--text);
+}
+
+.nav-scrolled .nav-link {
+  color: rgba(15, 23, 42, 0.7);
+}
+
+.nav-scrolled .nav-link:hover {
+  color: var(--primary);
+  text-shadow: none;
+}
+
+.nav-link.active {
+  color: var(--primary);
 }
