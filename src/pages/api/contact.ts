@@ -59,9 +59,11 @@ export const POST: APIRoute = async ({ request }) => {
     });
   } catch (error: any) {
     console.error('Error in contact handler:', error);
+    // Cambiamos el status de 500 a 400 para evitar que Vercel sobrescriba el body del error 
+    // con su página HTML genérica ("A server error has occurred").
     return new Response(
       JSON.stringify({ error: error?.message || 'Error del servidor procesando la solicitud.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };
