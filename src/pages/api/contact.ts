@@ -1,13 +1,14 @@
 import type { APIRoute } from 'astro';
-import { Resend } from 'resend';
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Inicializamos Resend dentro del try/catch
     const apiKey = typeof process !== 'undefined' ? process.env.RESEND_API_KEY : import.meta.env.RESEND_API_KEY;
-    const resend = new Resend(apiKey);
+    
+    if (!apiKey) {
+      throw new Error('No se encontró la configuración del servidor (falta la API Key).');
+    }
 
     const data = await request.formData();
     const name = data.get('name') as string;
@@ -18,14 +19,12 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!name || !email) {
       return new Response(
-        JSON.stringify({
-          error: 'Faltan campos obligatorios.',
-        }),
-        { status: 400 }
+        JSON.stringify({ error: 'Faltan campos obligatorios.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    const { data: resendData, error } = await resend.emails.send({
+    const payload = {
       from: 'Contacto <onboarding@resend.dev>', // Usar este dominio de pruebas para probar antes de verificar tu dominio en Resend
       to: ['clauelliot@gmail.com'],
       subject: `Nueva solicitud de contacto de ${name}`,
@@ -38,16 +37,25 @@ export const POST: APIRoute = async ({ request }) => {
         <p><strong>Mensaje:</strong></p>
         <p>${message ? message.replace(/\\n/g, '<br>') : 'No proporcionado'}</p>
       `,
+    };
+
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(payload),
     });
 
-    if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-      });
+    const resendData = await res.json();
+
+    if (!res.ok) {
+      throw new Error(resendData.message || 'Error al comunicarse con Resend.');
     }
 
-    return new Response(JSON.stringify({ success: true, id: resendData?.id }), {
-      status: 200,
+    return new Response(JSON.stringify({ success: true, id: resendData.id }), {
+      status: 200, headers: { 'Content-Type': 'application/json' }
     });
   } catch (error: any) {
     console.error('Error in contact handler:', error);
