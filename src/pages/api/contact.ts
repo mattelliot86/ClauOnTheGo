@@ -1,9 +1,11 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export const POST: APIRoute = async ({ request }) => {
+  // Inicializamos Resend dentro de la función para evitar que falle al arrancar la función en Vercel
+  // y usamos import.meta.env que es la forma segura en Astro
+  const resend = new Resend(import.meta.env.RESEND_API_KEY);
+  
   try {
     const data = await request.formData();
     const name = data.get('name') as string;
