@@ -4,11 +4,11 @@ import { Resend } from 'resend';
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
-  // Inicializamos Resend dentro de la función para evitar que falle al arrancar la función en Vercel
-  // y usamos import.meta.env que es la forma segura en Astro
-  const resend = new Resend(import.meta.env.RESEND_API_KEY);
-  
   try {
+    // Inicializamos Resend dentro del try/catch
+    const apiKey = typeof process !== 'undefined' ? process.env.RESEND_API_KEY : import.meta.env.RESEND_API_KEY;
+    const resend = new Resend(apiKey);
+
     const data = await request.formData();
     const name = data.get('name') as string;
     const email = data.get('email') as string;
@@ -49,10 +49,11 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(JSON.stringify({ success: true, id: resendData?.id }), {
       status: 200,
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error('Error in contact handler:', error);
     return new Response(
-      JSON.stringify({ error: 'Error del servidor procesando la solicitud.' }),
-      { status: 500 }
+      JSON.stringify({ error: error?.message || 'Error del servidor procesando la solicitud.' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 };
