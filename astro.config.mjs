@@ -1,9 +1,9 @@
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
-// Basic Astro configuration. We define a static output so
-// Netlify can easily serve the built files without requiring
-// a server runtime. If you later add the official Netlify adapter
-// (`@astrojs/netlify`) you can update this file accordingly.
+// Set the output to server to enable SSR (Server-Side Rendering) 
+// and configure the Vercel adapter for hosting.
 export default defineConfig({
-  output: 'static',
+  output: 'server',
+  adapter: vercel(),
 });

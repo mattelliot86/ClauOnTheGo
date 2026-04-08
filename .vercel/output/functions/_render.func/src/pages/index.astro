@@ -1,0 +1,28 @@
+---
+// The main page of the site.  It imports the layout and each
+// individual section component, passing down the appropriate
+// content from the site content module.  Anchors correspond to
+// the links defined in the navigation bar.
+
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import SobreMi from '../components/SobreMi.astro';
+import Filosofia from '../components/Filosofia.astro';
+import Proceso from '../components/Proceso.astro';
+import Paquetes from '../components/Paquetes.astro';
+import Contacto from '../components/Contacto.astro';
+import Footer from '../components/Footer.astro';
+import siteContent from '../content/site.ts';
+
+---
+<Layout title={siteContent.hero.title}>
+  <Nav />
+  <Hero content={siteContent.hero} />
+  <SobreMi content={siteContent.sobreMi} />
+  <Filosofia content={siteContent.filosofia} />
+  <Proceso content={siteContent.proceso} />
+  <Paquetes content={siteContent.paquetes} />
+  <Contacto content={siteContent.contacto} />
+  <Footer content={siteContent.footer} />
+</Layout>
