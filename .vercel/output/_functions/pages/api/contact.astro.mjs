@@ -1,8 +1,9 @@
 import { Resend } from 'resend';
 export { renderers } from '../../renderers.mjs';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const prerender = false;
 const POST = async ({ request }) => {
+  const resend = new Resend(undefined                              );
   try {
     const data = await request.formData();
     const name = data.get("name");
@@ -51,7 +52,8 @@ const POST = async ({ request }) => {
 
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
-  POST
+  POST,
+  prerender
 }, Symbol.toStringTag, { value: 'Module' }));
 
 const page = () => _page;

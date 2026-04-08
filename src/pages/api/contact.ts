@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { Resend } from 'resend';
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   // Inicializamos Resend dentro de la función para evitar que falle al arrancar la función en Vercel
   // y usamos import.meta.env que es la forma segura en Astro
