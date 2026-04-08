@@ -10,12 +10,16 @@ export const POST: APIRoute = async ({ request }) => {
       throw new Error('No se encontró la configuración del servidor (falta la API Key).');
     }
 
-    const data = await request.formData();
-    const name = data.get('name') as string;
-    const email = data.get('email') as string;
-    const phone = data.get('phone') as string;
-    const message = data.get('message') as string;
-    const interest = data.get('interest') as string;
+    if (!apiKey) {
+      throw new Error('No se encontró la configuración del servidor (falta la API Key).');
+    }
+
+    const data = await request.json();
+    const name = data.name as string;
+    const email = data.email as string;
+    const phone = data.phone as string;
+    const message = data.message as string;
+    const interest = data.interest as string;
 
     if (!name || !email) {
       return new Response(
@@ -49,17 +53,14 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify(payload),
     });
 
-    const resendData = await res.json();
+    const resendDataText = await res.text();
+    let resendData: any = {};
+    try {
+      resendData = JSON.parse(resendDataText);
+    } catch(e) {}
 
     if (!res.ok) {
-      const contentType = res.headers.get('content-type');
-      if (contentType?.includes('application/json')) {
-        const resendData = await res.json();
-        throw new Error(resendData.message || 'Error al comunicarse con Resend.');
-      } else {
-        const text = await res.text();
-        throw new Error(`Error del servidor: ${text}`);
-      }
+      throw new Error(resendData.message || `Error del servidor: ${resendDataText}`);
     }
 
     return new Response(JSON.stringify({ success: true, id: resendData.id }), {
