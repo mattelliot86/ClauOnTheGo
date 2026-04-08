@@ -5,7 +5,7 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const apiKey = typeof process !== 'undefined' ? process.env.RESEND_API_KEY : import.meta.env.RESEND_API_KEY;
-    
+
     if (!apiKey) {
       throw new Error('No se encontró la configuración del servidor (falta la API Key).');
     }
@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const payload = {
-      from: 'Contacto <onboarding@resend.dev>', // Usar este dominio de pruebas para probar antes de verificar tu dominio en Resend
+      from: 'Contacto <contacto@clauonthego.com>',
       to: ['clauelliot@gmail.com'],
       subject: `Nueva solicitud de contacto de ${name}`,
       html: `
@@ -44,6 +44,7 @@ export const POST: APIRoute = async ({ request }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
+        'User-Agent': 'clauonthego/1.0',
       },
       body: JSON.stringify(payload),
     });
@@ -51,7 +52,14 @@ export const POST: APIRoute = async ({ request }) => {
     const resendData = await res.json();
 
     if (!res.ok) {
-      throw new Error(resendData.message || 'Error al comunicarse con Resend.');
+      const contentType = res.headers.get('content-type');
+      if (contentType?.includes('application/json')) {
+        const resendData = await res.json();
+        throw new Error(resendData.message || 'Error al comunicarse con Resend.');
+      } else {
+        const text = await res.text();
+        throw new Error(`Error del servidor: ${text}`);
+      }
     }
 
     return new Response(JSON.stringify({ success: true, id: resendData.id }), {
