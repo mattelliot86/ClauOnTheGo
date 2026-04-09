@@ -23,11 +23,12 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Get API key from environment
+    // Get variables from environment
     const apiKey = import.meta.env.RESEND_API_KEY;
+    const toEmail = import.meta.env.CONTACT_TO_EMAIL;
 
-    if (!apiKey) {
-      console.error('Missing RESEND_API_KEY environment variable');
+    if (!apiKey || !toEmail) {
+      console.error('Missing RESEND_API_KEY or CONTACT_TO_EMAIL environment variables');
       return new Response(
         JSON.stringify({ error: "Configuración del servidor incompleta" }),
         {
@@ -38,8 +39,8 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const payload = {
-      from: 'onboarding@resend.dev',
-      to: 'clauelliot@gmail.com',
+      from: 'ClauOnTheGo <hello@clauonthego.com>',
+      to: [toEmail],
       subject: `Nueva solicitud de: ${data.name}`,
       html: `
         <p><strong>Nombre:</strong> ${data.name}</p>
