@@ -1,6 +1,9 @@
 export { renderers } from '../../renderers.mjs';
 
 const prerender = false;
+const config = {
+  runtime: "edge"
+};
 const POST = async ({ request }) => {
   try {
     const data = await request.json().catch((e) => {
@@ -102,6 +105,7 @@ const POST = async ({ request }) => {
 const _page = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   __proto__: null,
   POST,
+  config,
   prerender
 }, Symbol.toStringTag, { value: 'Module' }));
 

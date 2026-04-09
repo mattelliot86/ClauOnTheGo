@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro';
 
 export const prerender = false;
+export const config = {
+  runtime: 'edge'
+};
 
 export const POST: APIRoute = async ({ request }) => {
   try {
