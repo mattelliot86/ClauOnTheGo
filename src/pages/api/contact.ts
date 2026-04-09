@@ -5,10 +5,16 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   try {
     const data = await request.json().catch(() => ({}));
-    
-    // Si envían sin nombre ni email, asumimos que es un error del cliente 
+
+    // Validate required fields
     if (!data.name || !data.email) {
-      return new Response(JSON.stringify({ error: "Faltan datos" }), { status: 400 });
+      return new Response(
+        JSON.stringify({ error: "Faltan datos" }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
     }
 
     const payload = {
@@ -28,19 +34,53 @@ export const POST: APIRoute = async ({ request }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer re_Pi3cVzwm_38QBNFeuLPpgNBTtriLJSW8J`
+        'Authorization': 'Bearer re_Pi3cVzwm_38QBNFeuLPpgNBTtriLJSW8J',
+        'User-Agent': 'clauonthego/1.0' // Required header
       },
       body: JSON.stringify(payload)
     });
 
-    const result = await res.json();
+    // Handle non-JSON responses
+    const contentType = res.headers.get('content-type');
 
     if (!res.ok) {
-      return new Response(JSON.stringify({ error: result }), { status: 400 });
+      if (contentType?.includes('application/json')) {
+        const result = await res.json();
+        return new Response(
+          JSON.stringify({ error: result }),
+          {
+            status: res.status,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      } else {
+        const text = await res.text();
+        return new Response(
+          JSON.stringify({ error: text }),
+          {
+            status: res.status,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
     }
 
-    return new Response(JSON.stringify({ success: true, data: result }), { status: 200 });
+    const result = await res.json();
+    return new Response(
+      JSON.stringify({ success: true, data: result }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+
   } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message }), { status: 400 });
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
   }
 };
