@@ -1,17 +1,25 @@
-import type { APIRoute } from 'astro';
+export const config = {
+  runtime: 'edge',
+};
 
-export const prerender = false;
+export default async function handler(request: Request) {
+  if (request.method !== 'POST') {
+    return new Response(
+      JSON.stringify({ error: 'Method not allowed' }),
+      { status: 405, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
 
-export const POST: APIRoute = async ({ request }) => {
   try {
-    const apiKey = typeof process !== 'undefined' ? process.env.RESEND_API_KEY : import.meta.env.RESEND_API_KEY;
+    // Para Vercel Edge o Node serverless environment
+    // @ts-ignore
+    const apiKey = typeof process !== 'undefined' ? process.env.RESEND_API_KEY : undefined;
 
     if (!apiKey) {
-      throw new Error('No se encontró la configuración del servidor (falta la API Key).');
-    }
-
-    if (!apiKey) {
-      throw new Error('No se encontró la configuración del servidor (falta la API Key).');
+      return new Response(
+        JSON.stringify({ error: 'Missing RESEND_API_KEY en las variables de entorno de Vercel (Revisa que hayas hecho redeploy).' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
     const data = await request.json();
@@ -48,31 +56,32 @@ export const POST: APIRoute = async ({ request }) => {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
-        'User-Agent': 'clauonthego/1.0',
+        'User-Agent': 'clauonthego-edge/1.0',
       },
       body: JSON.stringify(payload),
     });
 
-    const resendDataText = await res.text();
+    const bodyText = await res.text();
     let resendData: any = {};
     try {
-      resendData = JSON.parse(resendDataText);
+      resendData = JSON.parse(bodyText);
     } catch(e) {}
 
     if (!res.ok) {
-      throw new Error(resendData.message || `Error del servidor: ${resendDataText}`);
+      return new Response(
+        JSON.stringify({ error: resendData.message || \`Error del servidor: \${bodyText}\` }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
     }
 
-    return new Response(JSON.stringify({ success: true, id: resendData.id }), {
-      status: 200, headers: { 'Content-Type': 'application/json' }
-    });
-  } catch (error: any) {
-    console.error('Error in contact handler:', error);
-    // Cambiamos el status de 500 a 400 para evitar que Vercel sobrescriba el body del error 
-    // con su página HTML genérica ("A server error has occurred").
     return new Response(
-      JSON.stringify({ error: error?.message || 'Error del servidor procesando la solicitud.' }),
+      JSON.stringify({ success: true, id: resendData.id }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
+  } catch (error: any) {
+    return new Response(
+      JSON.stringify({ error: error?.message || 'Server error' }),
       { status: 400, headers: { 'Content-Type': 'application/json' } }
     );
   }
-};
+}
