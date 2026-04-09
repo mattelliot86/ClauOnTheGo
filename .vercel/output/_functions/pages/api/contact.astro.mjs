@@ -3,58 +3,98 @@ export { renderers } from '../../renderers.mjs';
 const prerender = false;
 const POST = async ({ request }) => {
   try {
-    const apiKey = typeof process !== "undefined" ? process.env.RESEND_API_KEY : undefined                              ;
-    if (!apiKey) {
-      throw new Error("No se encontró la configuración del servidor (falta la API Key).");
-    }
-    const data = await request.formData();
-    const name = data.get("name");
-    const email = data.get("email");
-    const phone = data.get("phone");
-    const message = data.get("message");
-    const interest = data.get("interest");
-    if (!name || !email) {
+    const data = await request.json().catch((e) => {
+      console.error("JSON parse error:", e);
+      return {};
+    });
+    console.log("Received data:", data);
+    if (!data.name || !data.email) {
       return new Response(
-        JSON.stringify({ error: "Faltan campos obligatorios." }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "Faltan datos obligatorios: nombre y email" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" }
+        }
+      );
+    }
+    const apiKey = undefined                              ;
+    const toEmail = undefined                                ;
+    if (!apiKey || !toEmail) {
+      console.error("Missing RESEND_API_KEY or CONTACT_TO_EMAIL environment variables");
+      return new Response(
+        JSON.stringify({ error: "Configuración del servidor incompleta" }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" }
+        }
       );
     }
     const payload = {
-      from: "Contacto <onboarding@resend.dev>",
-      // Usar este dominio de pruebas para probar antes de verificar tu dominio en Resend
-      to: ["clauelliot@gmail.com"],
-      subject: `Nueva solicitud de contacto de ${name}`,
+      from: "ClauOnTheGo <hello@clauonthego.com>",
+      to: [toEmail],
+      subject: `Nueva solicitud de: ${data.name}`,
       html: `
-        <h2>Nueva solicitud de contacto</h2>
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Teléfono:</strong> ${phone || "No proporcionado"}</p>
-        <p><strong>Interés:</strong> ${interest || "No especificado"}</p>
-        <p><strong>Mensaje:</strong></p>
-        <p>${message ? message.replace(/\\n/g, "<br>") : "No proporcionado"}</p>
+        <p><strong>Nombre:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Teléfono:</strong> ${data.phone || "N/A"}</p>
+        <p><strong>Interés:</strong> ${data.interest || "N/A"}</p>
+        <p><strong>Mensaje:</strong> ${data.message || "N/A"}</p>
       `
     };
+    console.log("Sending to Resend API...");
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
+        "Authorization": `Bearer ${apiKey}`,
+        "User-Agent": "clauonthego/1.0"
       },
       body: JSON.stringify(payload)
     });
-    const resendData = await res.json();
+    console.log("Resend API response status:", res.status);
+    const contentType = res.headers.get("content-type");
     if (!res.ok) {
-      throw new Error(resendData.message || "Error al comunicarse con Resend.");
+      let errorData;
+      if (contentType?.includes("application/json")) {
+        errorData = await res.json();
+        console.error("Resend API error (JSON):", errorData);
+      } else {
+        errorData = await res.text();
+        console.error("Resend API error (text):", errorData);
+      }
+      return new Response(
+        JSON.stringify({
+          error: "Error al enviar email",
+          details: errorData,
+          status: res.status
+        }),
+        {
+          status: res.status,
+          headers: { "Content-Type": "application/json" }
+        }
+      );
     }
-    return new Response(JSON.stringify({ success: true, id: resendData.id }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" }
-    });
-  } catch (error) {
-    console.error("Error in contact handler:", error);
+    const result = await res.json();
+    console.log("Email sent successfully:", result);
     return new Response(
-      JSON.stringify({ error: error?.message || "Error del servidor procesando la solicitud." }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ success: true, data: result }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      }
+    );
+  } catch (err) {
+    console.error("Unexpected error in contact handler:", err);
+    return new Response(
+      JSON.stringify({
+        error: "Error del servidor",
+        message: err.message,
+        stack: err.stack
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      }
     );
   }
 };
