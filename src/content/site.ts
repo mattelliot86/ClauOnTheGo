@@ -107,96 +107,111 @@ export const siteContent = {
     planes: [
       {
         name: "Plan Impulso",
-        price: "desde S/ 650 mensuales",
+        price: "Desde S/650 mensuales",
         paraQuien:
-          "Negocios que recién empiezan o tienen poca presencia digital y necesitan orden, claridad y una base profesional.",
-        enfoque:
-          "Organizar tu cuenta, mejorar tu imagen y crear una presencia coherente desde el inicio.",
+          "Profesionales y negocios que están comenzando en Instagram o desean construir una presencia digital con una imagen profesional y una planificación clara.",
         incluye: [
-          "Diagnóstico inicial",
-          "Revisión de tu perfil, publicaciones actuales y objetivos.",
-          "Optimización del perfil",
-          "Ajuste de bio, foto, destacados y enlaces para que comuniquen mejor tu servicio.",
-          "Asesoría de contenido",
-          "Te indico qué grabar, cómo grabarlo y qué mostrar.",
-          "Hasta 6 contenidos al mes",
-          "Reels simples, carruseles o posts.",
-          "Edición básica de foto y video",
-          "Corte, orden, subtítulos simples y ajustes visuales.",
-          "Captions estratégicos",
-          "Textos pensados para conectar y posicionar tu servicio.",
-          "Publicación optimizada",
-          "Uso de estructura, palabras clave y formato adecuado.",
-          "Revisión mensual",
-          "Feedback y recomendaciones de mejora.",
+          {
+            title: "Diagnóstico inicial",
+            description:
+              "Revisión de tu perfil de Instagram, marca y objetivos para establecer una base de comunicación clara.",
+          },
+          {
+            title: "Planificación mensual",
+            description:
+              "Creación de un plan de contenido con los temas, formatos y propósito de cada publicación para organizar tu comunicación durante el mes.",
+          },
+          {
+            title: "Guía de contenido",
+            description:
+              "Te indico qué contenido grabar, cómo desarrollarlo y qué material necesito para crear cada publicación.",
+          },
+          {
+            title: "Edición de contenido",
+            description:
+              "Hasta 4 publicaciones mensuales (reels y/o carruseles), editadas según la planificación mensual.",
+          },
         ],
-        noIncluye: [
-          "Estrategia profunda",
-          "Stories",
-          "Gestión diaria",
-          "Análisis avanzado",
-        ],
-        objetivo:
-          "Construir una presencia clara, ordenada y profesional desde el inicio.",
       },
       {
         name: "Plan Crecimiento",
-        price: "desde S/ 1,050 mensuales — Más recomendado",
+        price: "Desde S/1,050 mensuales",
         paraQuien:
-          "Marcas con presencia en Instagram que no están obteniendo resultados claros o han sido mal gestionadas.",
-        enfoque:
-          "Convertir tu contenido en una herramienta real de crecimiento y posicionamiento.",
+          "Marcas que ya tienen presencia en Instagram y buscan comunicar con mayor estrategia, fortalecer su imagen y mantener una creación de contenido constante.",
         incluye: [
-          "Diagnóstico completo",
-          "Análisis de perfil, métricas, público y oportunidades.",
-          "Estrategia mensual personalizada",
-          "Definición de enfoque, calendario y objetivos.",
-          "Asesoría continua de contenido",
-          "Guía constante sobre qué grabar y cómo mostrar tu servicio.",
-          "Hasta 8 contenidos al mes",
-          "Reels y carruseles estratégicos.",
-          "Edición cuidada",
-          "Subtítulos, ritmo, narrativa visual y coherencia estética.",
-          "Captions con CTA suave",
-          "Textos que invitan a interactuar y contactar.",
-          "Investigación de tendencias del sector",
-          "Selección de tendencias útiles (no genéricas).",
-          "Programación del contenido",
-          "Análisis mensual",
-          "Resultados, aprendizajes y ajustes.",
-          "Asesoría personalizada",
+          {
+            title: "Diagnóstico estratégico",
+            description:
+              "Análisis de tu perfil de Instagram, contenido publicado, métricas, audiencia y oportunidades para identificar qué está funcionando y definir oportunidades de mejora.",
+          },
+          {
+            title: "Estrategia y planificación mensual",
+            description:
+              "Desarrollo de una estrategia de contenido alineada con los objetivos de tu marca y creación de un calendario mensual con los temas, formatos y propósito de cada publicación.",
+          },
+          {
+            title: "Dirección creativa del contenido",
+            description:
+              "Desarrollo de ideas y enfoques para transformar los servicios, conocimientos y novedades de tu marca en contenido. Te indico qué grabar, cómo grabarlo y cómo comunicar cada tema de forma clara.",
+          },
+          {
+            title: "Acompañamiento personalizado",
+            description:
+              "Comunicación durante el mes para resolver dudas, ajustar ideas y mantener la planificación alineada con los objetivos de tu marca.",
+          },
+          {
+            title: "Edición de contenido",
+            description:
+              "Hasta 6 publicaciones mensuales (reels y/o carruseles), desarrolladas y editadas según la estrategia de contenido.",
+          },
+          {
+            title: "Optimización de la estrategia",
+            description:
+              "Revisión del desempeño del contenido para identificar qué temas y formatos funcionan mejor y realizar ajustes en las siguientes planificaciones.",
+          },
         ],
-        objetivo: "Mejorar alcance, engagement y generar oportunidades reales.",
       },
       {
-        name: "Plan Posicionamiento",
-        price: "desde S/ 1,450 mensuales",
+        name: "Plan Studio",
+        price: "Desde S/1,450 mensuales",
         paraQuien:
-          "Marcas que buscan verse premium, diferenciarse y consolidarse como referentes en su sector.",
-        enfoque: "Autoridad, imagen sólida y posicionamiento profesional.",
+          "Marcas que buscan una presencia visual más cuidada y contenido de alta calidad para fortalecer su imagen en Instagram.",
         incluye: [
-          "Dirección creativa integral",
-          "Definición de estilo visual, tono y narrativa.",
-          "Branding digital aplicado",
-          "Cómo se ve y comunica tu marca en Instagram.",
-          "Estrategia avanzada",
-          "Enfoque a mediano y largo plazo.",
-          "Asesoría estratégica permanente",
-          "Acompañamiento cercano.",
-          "Hasta 10 contenidos al mes",
-          "Reels con texto, motion y narrativa visual + carruseles diseñados.",
-          "Guía estratégica de stories",
-          "Ideas, estructura y frecuencia.",
-          "Edición avanzada",
-          "Ritmo, storytelling y estética cuidada.",
-          "Análisis avanzado de métricas",
-          "Reportes + decisiones estratégicas.",
-          "Prioridad en entregas",
+          {
+            title: "Estrategia y planificación mensual",
+            description:
+              "Contenido alineado con los objetivos y comunicación de la marca.",
+          },
+          {
+            title: "Dirección creativa del contenido",
+            description:
+              "Desarrollo de ideas, narrativa y enfoque visual para cada publicación.",
+          },
+          {
+            title: "Producción de contenido",
+            description:
+              "Incluye una sesión mensual de grabación y fotografía para generar el contenido del mes.",
+          },
+          {
+            title: "Edición audiovisual premium",
+            description:
+              "Edición de video y fotografía con mayor dedicación al detalle para lograr un resultado visual más cuidado y profesional.",
+          },
+          {
+            title: "Hasta 6 publicaciones mensuales",
+            description:
+              "Reels y/o carruseles producidos y editados según la estrategia.",
+          },
+          {
+            title: "Acompañamiento prioritario",
+            description:
+              "Comunicación cercana para revisar ideas, resolver dudas y realizar ajustes durante el mes.",
+          },
         ],
-        objetivo:
-          "Construir autoridad, diferenciación y presencia sólida en el mercado.",
       },
     ],
+    importantNote:
+      "Importante: La grabación del contenido no está incluida en los planes mensuales. Si necesitas apoyo para la producción audiovisual o cobertura de eventos, puedes solicitar una cotización adicional.",
   },
   contacto: {
     title: "Agendar conversación",
@@ -218,7 +233,7 @@ export const siteContent = {
       "Plan elegido",
       "Plan Impulso",
       "Plan Crecimiento",
-      "Plan Posicionamiento",
+      "Plan Studio",
       "¿Por qué crees que ahora es un buen momento para trabajar tu Instagram?",
     ],
     gracias: [

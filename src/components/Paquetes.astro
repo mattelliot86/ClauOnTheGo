@@ -19,7 +19,7 @@ const { content } = Astro.props;
       </div>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-8">
+    <div class="grid lg:grid-cols-3 gap-8 lg:items-center">
       {
         content.planes.map((plan: any, idx: number) => (
           <div
@@ -40,24 +40,24 @@ const { content } = Astro.props;
                 idx === 1 ? "text-primary" : "text-gray-900"
               }`}
             >
-              {plan.price.split("—")[0]}
+              {plan.price}
             </p>
 
             <div class="mb-8 space-y-4">
-              <p class="text-sm opacity-80 uppercase font-bold tracking-widest text-primary">
-                Ideal para:
-              </p>
+              <h4 class="text-sm opacity-80 uppercase font-bold tracking-widest text-primary">
+                Ideal para
+              </h4>
               <p class="text-lg font-medium leading-snug text-gray-700">
                 {plan.paraQuien}
               </p>
             </div>
 
-            <div class="flex-grow">
-              <p class="text-sm opacity-80 uppercase font-bold tracking-widest mb-4 text-gray-900">
-                Lo que incluye:
-              </p>
-              <ul class="space-y-3 mb-8">
-                {plan.incluye.slice(0, 8).map((item: string) => (
+            <div>
+              <h4 class="text-sm opacity-80 uppercase font-bold tracking-widest mb-4 text-gray-900">
+                Lo que incluye
+              </h4>
+              <ul class="space-y-5 mb-8">
+                {plan.incluye.map((item: { title: string; description: string }) => (
                   <li class="flex items-start gap-3 text-sm text-gray-600">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,10 @@ const { content } = Astro.props;
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    <span>{item}</span>
+                    <div>
+                      <h5 class="font-semibold text-gray-900 mb-1">{item.title}</h5>
+                      <p class="leading-relaxed">{item.description}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -94,6 +97,13 @@ const { content } = Astro.props;
         ))
       }
     </div>
+
+    <aside
+      aria-label="Información importante sobre los planes mensuales"
+      class="mt-8 rounded-3xl border border-primary/20 bg-primary/5 p-6 md:p-8 text-base leading-relaxed text-gray-700 shadow-lg shadow-gray-200/40"
+    >
+      {content.importantNote}
+    </aside>
   </div>
 </section>
 
